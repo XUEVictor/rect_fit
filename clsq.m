@@ -6,7 +6,7 @@ function [c,n] = clsq(A,dim);
     [m,p] = size(A)
     if p < dim+1, error ('not enough unknowns parameter'); end;
     if m < dim, error ('not enough equations'); end;
-    m = min (m, p);
+    m = min (m, p)
     triu (qr (A))
     R = triu (qr (A))
 %     S = p-dim+1:m
@@ -18,8 +18,12 @@ function [c,n] = clsq(A,dim);
     [U,S,V] = svd(R(p-dim+1:m,p-dim+1:p))
     n = V(:,dim)
     para1 = -R(1:p-dim,1:p-dim)
-    para2 = R(1:p-dim,p-dim+1:p)*n
+    para2 = R(1:p-dim,p-dim+1:p)
 
     E1 = p-dim
     E2 = p-dim+1
-    c = -R(1:p-dim,1:p-dim)\R(1:p-dim,p-dim+1:p)*n;
+%     c2 = inv(para1)*para2
+%     c1 = para1 \ para2
+    c = -R(1:p-dim,1:p-dim)\R(1:p-dim,p-dim+1:p)*n
+    
+    
